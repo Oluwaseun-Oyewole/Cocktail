@@ -18,10 +18,18 @@ const CocktailList = () => {
 		);
 	}
 	return (
-		<div>
-			<h2>cocktail list component</h2>
-		</div>
+		<section className="section">
+			<h2 className="section-title">cocktails</h2>
+			<div className="cocktails-center">
+				{cockTails.map((item) => {
+					const { id } = item;
+					return <Cocktail key={id} {...item}></Cocktail>;
+				})}
+			</div>
+		</section>
 	);
 };
 
 export default CocktailList;
+
+// https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007

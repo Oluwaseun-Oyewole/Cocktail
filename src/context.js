@@ -1,30 +1,25 @@
 /** @format */
-
-import React, {
-	useState,
-	useContext,
-	useEffect,
-} from "react";
-import { useCallback } from "react";
+import React, { useState } from "react";
 
 const url =
-	"https://www.theco cktaildb.com/api/json/v1/1/search.php?s=";
+	"https://www.thecocktaildb.com/api/json/v1/1/search.php?s=";
+
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 	const [searchTerm, setSearchTerm] = useState("a");
-	const [cockTails, setCockTails] = useState([]);
+	const [cockTails, setCocktails] = useState([]);
+
 	const fetchDrinks = async () => {
+		setLoading(true);
 		try {
-			setLoading(true);
-			const response = await fetch(
-				`{${url} ${searchTerm}}`
-			);
+			const response = await fetch(`${url} ${searchTerm}`);
 			const data = await response.json();
+
 			const { drinks } = data;
 			if (drinks) {
-				const newCockTails = drinks.map((item) => {
+				const newDrinks = drinks.map((item) => {
 					const {
 						idDrink,
 						strDrink,
@@ -40,18 +35,18 @@ const AppProvider = ({ children }) => {
 						glass: strGlass,
 					};
 				});
-				setCockTails(newCockTails);
+				setCocktails(newDrinks);
 			} else {
-				setCockTails([]);
+				setCocktails([]);
 			}
 			setLoading(false);
 		} catch (error) {
-			setLoading(false);
 			console.log(error);
+			setLoading(false);
 		}
 	};
 
-	useEffect(() => {
+	React.useEffect(() => {
 		fetchDrinks();
 	}, [searchTerm]);
 
@@ -59,16 +54,17 @@ const AppProvider = ({ children }) => {
 		<AppContext.Provider
 			value={{
 				loading,
-				setSearchTerm,
 				cockTails,
+				setCocktails,
+				setSearchTerm,
 			}}>
 			{children}
 		</AppContext.Provider>
 	);
 };
-// make sure use
+
 export const useGlobalContext = () => {
-	return useContext(AppContext);
+	return React.useContext(AppContext);
 };
 
 export { AppContext, AppProvider };
