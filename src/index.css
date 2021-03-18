@@ -211,7 +211,7 @@ Cocktails List
 	padding: 5rem 0;
 }
 .section-title {
-	font-size: 2rem;
+	font-size: 1.3rem;
 	text-transform: capitalize;
 	letter-spacing: var(--mainSpacing);
 	text-align: center;

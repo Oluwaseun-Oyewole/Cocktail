@@ -12,14 +12,20 @@ const CocktailList = () => {
 	}
 	if (cockTails.length < 1) {
 		return (
-			<h2 className="section-title">
+			<h4
+				className="section-title"
+				style={{ fontSize: "17px" }}>
 				no cocktail match your search criteria
-			</h2>
+			</h4>
 		);
 	}
 	return (
 		<section className="section">
-			<h2 className="section-title">cocktails</h2>
+			<h3
+				className="section-title"
+				style={{ fontSize: "18px" }}>
+				cocktails
+			</h3>
 			<div className="cocktails-center">
 				{cockTails.map((item) => {
 					const { id } = item;
@@ -31,5 +37,3 @@ const CocktailList = () => {
 };
 
 export default CocktailList;
-
-// https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007
